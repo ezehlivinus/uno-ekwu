@@ -1,8 +1,9 @@
 const { AccessControl } = require('accesscontrol');
 const Joi = require('joi');
 const mongoose = require('mongoose');
+const { ac } = require('../config/roles');
 
-const ac = new AccessControl();
+// const ac = new AccessControl();
 
 // Define menu schema
 const menuSchema = new mongoose.Schema({

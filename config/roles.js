@@ -1,6 +1,7 @@
 const AccessControl = require('accesscontrol');
 
 const ac = new AccessControl();
+exports.ac = ac;
 
 exports.roles = (function r() {
   ac.grant('customer')

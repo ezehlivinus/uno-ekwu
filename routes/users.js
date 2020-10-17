@@ -9,13 +9,13 @@ const permit = require('../middlewares/persmission');
 router.post('/login', UserController.login);
 
 router.route('/')
-  .get(UserController.list)
+  .get([auth, permit.grant('readOwn', 'userAccount')], UserController.list)
   .post(UserController.create);
 
-router.route('/:id')
-  .get([auth, permit.grant('readOwn', 'userAccount')], UserController.detail)
-  .put(UserController.update)
-  .patch(UserController.update)
+router.route('/:id').all([auth])
+  .get([permit.grant('readOwn', 'userAccount')], UserController.detail)
+  .put([permit.grant('readOwn', 'userAccount')], UserController.update)
+  .patch([permit.grant('readOwn', 'userAccount')], UserController.update)
   .delete([auth, permit.grant('deleteAny', 'userAccount')], UserController.delete);
 
 module.exports = router;
