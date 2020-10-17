@@ -1,0 +1,58 @@
+Project/API name: onuekwu
+
+This is an app that a restaurant's customers can use to place orders for delivery.
+It allows them to pick menu items, pay for them, and specify a delivery time and address.
+
+Minimum Viable Product (MVP):
+The product will serve the following minimum features. These are the features that should serve/solve users’ minimum needs/problems:
+- User account creation/management and update
+- Oder management
+- Menu management
+- Authentication and Authorization, where necessary
+- Payments
+- Search menu and category
+
+Alpha.1 Feature
+- Menu - Showcase meal
+- Take order -
+- Place order
+
+User role/types
+- customer
+- staff
+- admin
+
+User Stories
+- Staff: This user that part of this restaurant
+    - should be able to create account and then verified by an admin
+    - Should be able to create and manage menu, order and other resource of the app 
+- Admin: This is the owner of the system/restaurant
+    - Can delete resources
+    - Should be able to create add a staff
+- Customer: This is the user who places order
+    - Should be to create a account
+    - Should be to see menus, place order and make change to order
+    - Should be able to make payments
+    - should be able to make comments against an order
+
+
+Entities/Collection
+- User - basic users details
+- Menu - Keeps the restaurant menus
+- Order - Keeps orders
+- Comment Order comment
+- Category - menu category
+
+Functional Requirements
+- Registration: Users can create an account
+- Login/logout: Users can login/logout
+- Management: Should be able to perform CREATE, READ, UPDATE and DELETE operations on
+    - menu
+    - category
+    - users: customer, admin, staff
+    - order
+    - and order resources of the system where necessary
+
+None-Functional Requirements
+
+
