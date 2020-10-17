@@ -35,6 +35,16 @@ const userSchema = new mongoose.Schema({
 
 }, { timestamps: new Date() });
 
+// Tells which user properties that are included when converting MongoDB records to
+// JSON objects which are returned in API responses
+userSchema.set('toJSON', {
+  versionKey: false,
+  transform(doc, ret) {
+    // eslint-disable-next-line no-param-reassign
+    delete ret.password;
+  }
+});
+
 // Define static method to be used on User object
 userSchema.methods.generateAuthToken = function t() {
   const token = jwt.sign({
@@ -46,24 +56,13 @@ userSchema.methods.generateAuthToken = function t() {
   return token;
 };
 
-// Tells which user properties that are included when converting MongoDB records to
-// JSON objects which are returned in API responses
-userSchema.set('toJSON', {
-  versionKey: false,
-  transform(doc, ret) {
-    // eslint-disable-next-line no-param-reassign
-    delete ret.password;
-  }
-});
-
 // Define User model based on user schema
 const User = mongoose.model('User', userSchema);
 
 // validation
 const validateUser = async (user = {}) => {
   const schema = Joi.object({
-    firstName: Joi.string().min(3).max(100).required(),
-    lastName: Joi.string().min(3).max(100).required(),
+    name: Joi.string().min(2).max(100).required(),
     password: Joi.string().min(6).max(60).required(),
     email: Joi.string().email().trim().lowercase()
       .required()
@@ -77,8 +76,7 @@ const validateUser = async (user = {}) => {
 // validation
 const validateUpdate = async (user = {}) => {
   const schema = Joi.object({
-    firstName: Joi.string().min(3).max(100),
-    lastName: Joi.string().min(3).max(100),
+    name: Joi.string().min(2).max(100),
     password: Joi.string().min(6).max(60),
     email: Joi.string().email().trim().lowercase()
   });
