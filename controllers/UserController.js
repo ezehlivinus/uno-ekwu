@@ -5,6 +5,8 @@ const { User, validateUser, validateUpdate } = require('../models/User');
 
 /**
  * Retrieve a user
+ * @param {object} req
+ * @param {object} res
  */
 exports.detail = async (req, res) => {
   const user = await User.findById(req.params.id);
