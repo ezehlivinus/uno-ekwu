@@ -4,9 +4,14 @@ This is a restaurant app.
 It allows them to pick menu items, pay for them, and specify a delivery time and address.
 
 ## Setup
+It is assumed that you have nodejs, and mongodb installed.
 - Fork/Clone
-- Terminal/CLI command: `npm install` to install dependencies
-- Terminal/CLI command: `cp .env.example .env` to make create .env file based on the .env.example file. setup the created .env file
+- Install dependencies, on terminal do: `npm install` 
+- Setup environment
+    - use this command  `cp .env.example .env` or npm run `setup:env`
+    - Any of the above commands creates `.env` file based on the `.env.example` file.
+    - setup the created .env file
+- Start the server in development by running: `npm run dev`
 
 ## Usage
 Routes documentation has not been prepared yet and work is still on-going for the various features. Check the `design.txt` file for more info about this simple app.
