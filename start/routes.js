@@ -2,6 +2,9 @@
 // example: const users = require('../routes/users')
 
 const users = require('../routes/users');
+const menus = require('../routes/menus');
+
+const auth = require('../middlewares/authentication');
 
 const basePath = '/api/v1';
 
@@ -9,7 +12,6 @@ const basePath = '/api/v1';
  * Routes list
  */
 module.exports = (app) => {
-// routes goes here
-// example: app.use('api/v1/users', users);
   app.use(`${basePath}/users`, users);
+  app.use(`${basePath}/menus`, [auth, menus]);
 };
