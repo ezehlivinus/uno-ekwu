@@ -13,10 +13,7 @@ router.route('/')
 
 router.route('/:id')
   .get(permit.grant('readAny', 'menu'), MenuController.detail)
-  .all([
-    permit.grant('createAny', 'menu'),
-    permit.grant('updateAny', 'menu')
-  ])
+  .all([permit.grant('updateAny', 'menu'), permit.grant('createAny', 'menu')])
   .put(MenuController.update)
   .patch(MenuController.update)
   .delete(permit.grant('deleteAny', 'menu'), MenuController.delete);

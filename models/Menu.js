@@ -31,6 +31,14 @@ const menuSchema = new mongoose.Schema({
   }
 }, { timestamps: new Date() });
 
+menuSchema.set('toJSON', {
+  versionKey: false,
+  transform(doc, ret) {
+    // eslint-disable-next-line no-param-reassign
+    // delete ret.field;
+  }
+});
+
 // Defines Menu model based on menu schema
 const Menu = mongoose.model('Menu', menuSchema);
 
