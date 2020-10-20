@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --config ./config/jest.config.js  --detectOpenHandles",
+    "test:watch": "npm run test -- --watch",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "setup:env": "cp .env.example .env"
+    "setup:env": "cp .env.example .env && echo created .env file"
   },
   "keywords": [],
   "author": "",
@@ -28,10 +29,13 @@
     "winston-mongodb": "^5.0.5"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.14",
     "eslint": "^7.10.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.0",
     "jsdoc": "~3.6.6",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "supertest": "^5.0.0"
   }
 }
