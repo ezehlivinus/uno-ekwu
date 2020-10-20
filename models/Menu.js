@@ -1,4 +1,3 @@
-const { AccessControl } = require('accesscontrol');
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const { ac } = require('../config/roles');
