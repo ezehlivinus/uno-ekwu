@@ -9,6 +9,7 @@ exports.roles = (function r() {
     .updateOwn('userAccount');
 
   ac.grant('staff').extend('customer')
+    .readAny('userAccount')
     .createAny('userAccount');
 
   ac.grant('admin').extend('staff')
