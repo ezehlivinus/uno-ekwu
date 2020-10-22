@@ -23,10 +23,13 @@ const menuSchema = new mongoose.Schema({
     required: true,
     default: 0
   },
-
-  isAvailable: {
-    type: Boolean,
-    default: false
+  // when food are ready staff/admin sets
+  //  quantity based on how they dishes foods .. a pot can yield 20 plates
+  // if quantity is zero, the menu is not available
+  quantity: {
+    type: Number,
+    required: true,
+    default: 1
   }
 }, { timestamps: new Date() });
 
@@ -50,7 +53,7 @@ const validateMenu = async (menu = {}) => {
     name: Joi.string().min(2).max(100).required(),
     price: Joi.number().min(0).required(),
     description: Joi.string(),
-    isAvailable: Joi.boolean()
+    quantity: Joi.number().required().min(0)
   });
 
   const value = await schema.validateAsync(menu);

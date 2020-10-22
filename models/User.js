@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const { SECRET } = require('../config/env');
+const { ac } = require('../config/roles');
+
 
 // Define user schema
 const userSchema = new mongoose.Schema({
@@ -86,6 +88,23 @@ const validateUpdate = async (user = {}) => {
   return value;
 };
 
+const authorisations = (() => {
+  ac.grant('customer')
+    .readOwn('userAccount')
+    .updateOwn('userAccount');
+
+  ac.grant('staff').extend('customer')
+    .readAny('userAccount')
+    .createAny('userAccount');
+
+  ac.grant('admin').extend('staff')
+    .updateAny('userAccount')
+    .deleteAny('userAccount');
+
+  return ac;
+})();
+
 exports.validateUser = validateUser;
 exports.User = User;
 exports.validateUpdate = validateUpdate;
+exports.authorisations = authorisations;

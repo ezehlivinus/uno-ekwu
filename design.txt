@@ -40,8 +40,8 @@ Entities/Collection
 - User - basic users details
 - Menu - Keeps the restaurant menus
 - Order - Keeps orders
-- Comment Order comment
-- Category - menu category
+- Comment - feedback on Order
+- Category - menu category may be removed and place as enum on orders
 
 Functional Requirements
 - Registration: Users can create an account

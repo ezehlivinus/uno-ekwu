@@ -1,6 +1,3 @@
-// require your routes here
-// example: const users = require('../routes/users')
-
 const users = require('../routes/users');
 const menus = require('../routes/menus');
 const orders = require('../routes/orders');

@@ -19,3 +19,14 @@ router.route('/:id')
   .delete(permit.grant('deleteAny', 'menu'), MenuController.delete);
 
 module.exports = router;
+
+/**
+ *
+ * Create body request ...POST/PUT/PATCH
+ * {
+ *  "name": "some name",
+ *  "quantity": 2,
+ *  "description": "text not required",
+ *  "price": 3
+ * }
+ */

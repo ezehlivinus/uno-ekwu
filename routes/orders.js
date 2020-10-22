@@ -13,7 +13,7 @@ router.route('/')
 
 router.route('/:id')
   .get(permit.grant('readOwn', 'order'), OrderController.detail)
-  .all([permit.grant('updateOwn', 'order'), permit.grant('readOwn', 'order')])
+  .all([permit.grant('updateOwn', 'order')])
   .put(OrderController.update)
   .patch(OrderController.update)
   .delete(permit.grant('deleteAny', 'order'), OrderController.delete);
@@ -27,7 +27,7 @@ module.exports = router;
  *  "items": "menuId",
  *  "quantity": 2,
  *  "description": "text not required",
- *  "customer": "userId",
+ *  "customerId": "userId",
  *  "address": "delivery address"
  * }
  */
