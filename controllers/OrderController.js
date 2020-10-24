@@ -30,7 +30,7 @@ exports.list = async (req, res) => {
 };
 
 /**
- * Create a order | place an order
+ * Create an order | place an order
  * For now: customers can only order for a single menu
  * For varieties menus, updates laters
  */
@@ -73,45 +73,63 @@ exports.create = async (req, res) => {
 };
 
 /**
- * Update a order
+ * Update an order
  */
 exports.update = async (req, res) => {
-  const customer = await User.findById(req.body.userId);
-  if (!customer) return res.status(404).send({ status: 'error', message: 'Not found' });
+  // later whole req.body validation would be done, and this would be removed
+  if (req.body.quantity <= 0) {
+    return res.status(400).send({
+      status: 'error', message: 'quantity can not be zero'
+    });
+  }
 
-  const menu = await Menu.findById({ _id: req.params.menuId });
+  const customer = await User.findById(req.body.customerId);
+  if (!customer) return res.status(404).send({ status: 'error', message: 'customer Not found' });
+
+  const menu = await Menu.findById({ _id: req.body.menuId });
   if (!menu) return res.status(404).send({ status: 'error', message: 'Not found' });
   if (!menu.quantity) return res.status(404).send({ status: 'error', message: 'This menu has finished' });
 
-  if (req.body.quantity > menu.quantity) {
+  const order = await Order.findById(req.params.id);
+  if (!order) return res.status(404).send({ status: 'error', message: 'Order not found' });
+
+  // check if we can order for the updated new order quantity
+  // previous order.quantity plus menu.quantity should be >= newOrder.quantity
+  // else the menu is not sufficient
+  const newMenuQuantity = menu.quantity + order.quantity;
+  if (newMenuQuantity < req.body.quantity) {
     return res.status(404).send({
       status: 'error',
       message: `sorry, we only have ${menu.quantity} of this menu remaining`
     });
   }
 
-  // deducting and adding to/from menu's or order's quantity will be attended to
-  menu.quantity += req.body.quantity;
+  // add current menu.quantity to order.quantity as the new menu.quantity
+  menu.quantity = newMenuQuantity;
+
+  // payment computation: subtract and addition where necessary
 
   const requestBody = _.omit(req.body, ['confirmed']);
 
   const options = { new: true, runValidators: true };
-  await Menu.findByIdAndUpdate(req.params.id, {
+  await Order.findByIdAndUpdate(req.params.id, {
     customer: customer._id,
     items: menu._id,
     ...requestBody
-  }, options, async (error, order) => {
+  }, options, async (error, updatedOrder) => {
     if (error) throw error;
-    if (!order) return res.status(404).send({ status: 'error', message: 'menu not found' });
+    if (!updatedOrder) return res.status(404).send({ status: 'error', message: 'order not found' });
 
+    // minus order.quantity from menu.quantity
+    menu.quantity -= updatedOrder.quantity;
     await menu.save();
 
-    res.status(200).send({ status: 'success', data: order });
+    res.status(200).send({ status: 'success', data: updatedOrder });
   });
 };
 
 /**
- * Delete a order
+ * Delete an order
  */
 exports.delete = async (req, res) => {
   // We shall  check condition of deleting later
@@ -120,4 +138,21 @@ exports.delete = async (req, res) => {
   if (!order) return res.status(404).send({ status: 'error', message: 'order not found' });
 
   res.status(200).send({ status: 'success', data: order });
+};
+
+/**
+ * Cancel order
+ * Allow customer to cancel their order
+ */
+exports.cancel = async (req, res) => {
+
+};
+
+/**
+ * confirm order
+ * Allow admin/staff to confirm order
+ * this allow customer to know that their order has been attended to
+ */
+exports.confirm = async (req, res) => {
+
 };
