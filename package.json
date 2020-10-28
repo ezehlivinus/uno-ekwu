@@ -1,5 +1,5 @@
 {
-  "name": "expressjs-template",
+  "name": "uno-ekwu",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "https://github.com/ezehlivinus",
   "license": "ISC",
   "dependencies": {
     "accesscontrol": "^2.2.1",

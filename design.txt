@@ -12,26 +12,26 @@ The product will serve the following minimum features. These are the features th
 - Payments
 - Search menu and category
 
-Alpha.1 Feature
+Alpha.1 Feature : first release
 - Menu - Showcase meal
-- Take order -
-- Place order
+- Take order - confirm order
+- Place order - without payments
 
-User role/types
+User roles/types
 - customer
 - staff
 - admin
 
 User Stories
-- Staff: This user that part of this restaurant
+- Staff: This is user is part of this restaurant
     - should be able to create account and then verified by an admin
     - Should be able to create and manage menu, order and other resource of the app 
-- Admin: This is the owner of the system/restaurant
+- Admin: This is the owner of the system/restaurant, or an advance staff
     - Can delete resources
-    - Should be able to create add a staff
-- Customer: This is the user who places order
-    - Should be to create a account
-    - Should be to see menus, place order and make change to order
+    - Should be able to create (verify) add a staff
+- Customer: This is the user who places an order
+    - Should be able to create a account
+    - Should be able to see menus, place order and make change to order
     - Should be able to make payments
     - should be able to make comments against an order
 
